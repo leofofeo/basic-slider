@@ -72,7 +72,7 @@ div.main-slider-section {
 .slide {
 	padding-bottom:30px;
 	width:700px;
-	height:520px;
+	height:590px;
 }
 
 .slide-text {
@@ -86,6 +86,10 @@ div.main-slider-section {
 
 .slide-text h2 {
 	font-weight:bold;
+}
+
+.slide-text p {
+	padding: 0 10px;
 }
 
 

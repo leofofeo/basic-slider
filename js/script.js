@@ -1,16 +1,22 @@
 //JS and jQuery for RQ
 $('document').ready(function(){
  	setActiveImage(1);
+ 	var clearTimeoutId = window.setInterval(setIntervalSwitchImage, 3000);
+ 	storeClearTimeoutId(clearTimeoutId);
 });
 
+var GlobalClearTimeoutId = 0;
 
 $('.switch-arrow').on('click', function(){
 	var arrowId = $(this).attr('id');
 	switchImage(arrowId);
+	window.clearTimeout(GlobalClearTimeoutId);
 });
 
 
-
+var storeClearTimeoutId= function(clearTimeoutId){
+	GlobalClearTimeoutId = clearTimeoutId;
+}
 
 var getNextImageId = function(arrowId, currentImageId){
 	var newImageId = 0;
@@ -32,12 +38,15 @@ var getNextImageId = function(arrowId, currentImageId){
 
 }
 
+
+var setIntervalSwitchImage = function(){
+	switchImage('next');
+}
+
 var switchImage = function(arrowId){
 	var currentImageId = getCurrentImageId();
 	var newImageId = getNextImageId(arrowId, currentImageId);
 	setActiveImage(newImageId);
-	console.log('current Image Id: ' + currentImageId);
-	console.log('new Image Id: ' + newImageId);
 }
 
 var getCurrentImageId = function(){
@@ -51,7 +60,6 @@ var getCurrentImageId = function(){
 
 var setActiveImage = function(newImageId){
 	$('.slide').removeClass('active');
-	console.log('#slide-' + newImageId);
 	$('#slide-' + newImageId).addClass('active').show();
 	for(var j = 1; j < 10; j++){
 		if(!$('#slide-'+j).hasClass('active')){
